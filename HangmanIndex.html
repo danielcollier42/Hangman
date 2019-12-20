@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hangman!</title>
+    <script src = "HangmanScript.js"></script>
+    <link rel = "stylesheet" href = "HangmanStyles.css">
+</head>
+<body onload="">
+
+<button id="startButton" onclick="startGame()">Start Game!</button>
+
+<div id="word"></div>
+
+<select class="selector" id="difficulty" onchange="determineGuesses(this.value)">
+    <option id="Easy">Easy</option>
+    <option id="Medium">Medium</option>
+    <option id="Hard">Hard</option>
+</select>
+
+<div id="answer"></div>
+
+<select class="selector" id="category" onchange="doBackground(this.id)">
+    <option value="0">Numbers (yes, really)</option>
+    <option value="1">U.S. Vice Presidents (Last Names)</option>
+    <option value="2">House Cats</option>
+    <option value="3">Small Towns</option>
+    <option value="4">Harry Potter</option>
+    <option value="5">Knots</option>
+    <option value="6">Strange Colors (good luck with this one...)</option>
+</select>
+
+<div id="remainingGuesses">Remaining Guesses: 13</div>
+
+<div id="message"></div>
+
+
+<div id="buttons"></div>
+
+</body>
+</html>
