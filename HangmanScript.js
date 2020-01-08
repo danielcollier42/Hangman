@@ -47,7 +47,12 @@ var HP = ["ErnieMacmillan","ScorpiusMalfoy","TeddyLupin","XenophiliusLovegood","
 var KNOTS = ["FigureEight","Bowline","Reef","Butterfly","SheetBend","CloveHitch","Prusik","KleimHeist","ChainSplice","CarrickBend","MunterHitch","HalterHitch","AnchorBend"];
 var COLORS = ["Malachite","Gamboge","Fallow","Razzmatazz","Falu","Arsenic","Feldgrau","Xanadu","Sarcoline","Coquelicot","Smaragdine","Mikado","Glaucous"];
 
-    //var category = document.getElementById(category).value;
+
+var easyImages = ["image/Hang-base.jpg", "image/EasyPerson/EasyHead.jpg", "image/EasyPerson/EasyEyes.jpg", "image/EasyPerson/EasyEyebrow1.jpg", "image/EasyPerson/EasyEyebrow2.jpg", "image/EasyPerson/EasyMouth.jpg", "image/EasyPerson/EasyBody.jpg", "image/EasyPerson/EasyArm1.jpg", "image/EasyPerson/EasyArm2.jpg", "image/EasyPerson/EasyLeg1.jpg", "image/EasyPerson/EasyLeg2.jpg", "image/EasyPerson/EasyGlove1.jpg", "image/EasyPerson/EasyGlove2.jpg", "image/EasyPerson/EasyHat.jpg"];
+var medImages =["image/Hang-base.jpg", "image/MediumPerson/MediumHead.jpg", "image/MediumPerson/MediumEye1.jpg", "image/MediumPerson/MediumEye2.jpg", "image/MediumPerson/MediumMouth.jpg", "image/MediumPerson/MediumBody.jpg", "image/MediumPerson/MediumArm1.jpg", "image/MediumPerson/MediumArm2.jpg", "image/MediumPerson/MediumLeg1.jpg", "image/MediumPerson/MediumLeg2.jpg"];
+var hardImages = ["image/Hang-base.jpg", "image/HardPerson/HardHead.jpg", "image/HardPerson/HardFace.jpg", "image/HardPerson/HardBody.jpg", "image/HardPerson/HardArms.jpg", "image/HardPerson/HardLegs.jpg"];
+
+//var category = document.getElementById(category).value;
     //return wordsByCat[category];
 
 //var CATEGORIES = [["Numbers", NUMBERS], ["US Vice Presidents", VP], ["House Cats", CAT], ["Small Towns", TOWNS], ["Harry Potter", HP], ["Knots", KNOTS], ["Strange Colors", COLORS]];
@@ -57,6 +62,7 @@ var word = "";
 var words = "";
 var guesses = "";
 var guessedLetters = [];
+var n = 1; //This variable is so I can have different pictures for each difficulty
 
 
 function startGame(){
@@ -64,6 +70,7 @@ function startGame(){
     var difficulty = document.getElementById("difficulty").value;
     var category = document.getElementById("category").value;
     var words;
+
 
     if(category == 0){
         words = NUMBERS;
@@ -88,6 +95,10 @@ function startGame(){
     determineGuesses(difficulty);
     doDashes();
     doButtons();
+
+    document.getElementById('image').src = easyImages[0];
+
+    n = 1;
 }
 
 function doDashes(){
@@ -119,16 +130,54 @@ function doButtons(){
 }
 
 //step 1.5
-function guessLetter(button){
+function guessLetter(button) {
     button.disabled = "true";
     var guess = button.value;
     guessedLetters += guess;
-    guesses --;
+    if(letterInWord(guess) == false){
+        doImage();
+        guesses--;
+    }
     printWord();
     document.getElementById("remainingGuesses").innerHTML = "Remaining Guesses: " + guesses;
     if(guesses <= 0){
         youLose();
         disableButtons();
+
+        if(displayedWord == word) {
+            youWin();
+            disableButtons();
+        }
+    }
+}
+
+function letterInWord(letter){
+    var includes = false;
+    for(var i = 0; i < word.length; i++){
+        if(word.substring(i, i + 1) == letter){
+            includes = true
+        }
+    }
+    return includes;
+}
+
+function doImage(){
+    var imgArr;
+    var cap;
+    var difficulty = document.getElementById("difficulty").value;
+    if(difficulty == "Easy"){
+        imgArr = easyImages;
+        cap = 13;
+    } else if(difficulty == "Medium"){
+        imgArr = medImages;
+        cap = 9;
+    } else if(difficulty == "Hard"){
+        imgArr = hardImages;
+        cap = 5
+    }
+    document.getElementById('image').src = imgArr[n];
+    if(n < cap){
+        n++;
     }
 }
 
@@ -142,17 +191,12 @@ function printWord(){
         } else {
                     displayedWord += "_";
         }
-        if(displayedWord == word){
-              youWin();
-        }
-            //} else {
-                //displayedWord += " ";
-            //}
     }
     document.getElementById("answer").innerHTML = displayedWord;
 }
 //step 0
 function determineGuesses(difficulty){
+    var imgArr;
     if(difficulty == "Easy"){
         guesses = 13;
     } else if(difficulty == "Medium"){
@@ -161,7 +205,9 @@ function determineGuesses(difficulty){
         guesses = 5;
     }
     document.getElementById("remainingGuesses").innerHTML = "Remaining Guesses: " + guesses;
+    return difficulty;
 }
+
 
 function youLose(){
     document.getElementById("message").innerHTML = "You Lose... Try again?";
@@ -193,27 +239,15 @@ function resetButtons(){
 
 
 //Turns strings into arrays
-function wordToArray(string){
+function wordToArray(string) {
     var strArr = string.toString();
     var arr = strArr.split();
     return arr;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//   | stuff I had done but I decided to restart
+//   V
 
 // function doBackground(category){
 //     var source;

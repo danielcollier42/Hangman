@@ -1,12 +1,73 @@
+/*Not the prettiest but I tried :)*/
+
 body {
-    /*background-image: url("image/questionMarks.jpg");*/
     color: cornflowerblue;
     align-items:center;
+    text-align: center;
 }
 
-.selector{
-    align-items:center;
+#answer{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 75px;
+}
+
+#category {
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     position: relative;
+     top: 60px;
+     height: 30px;
+     font-family: "Luminari";
+     font-size: 15px;
+     color: forestgreen;
+ }
+
+#startButton {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 20px;
+    height: 30px;
+    font-family: "Luminari";
+    font-size: 15px;
+    color: forestgreen;
+}
+
+#difficulty {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 40px;
+    height: 30px;
+    font-family: "Luminari";
+    font-size: 15px;
+    color: forestgreen;
+}
+
+#remainingGuesses {
+    display: block;
+    height: 30px;
+    position: relative;
+    top: 120px;
+    font-family: "Luminari";
+    font-size: 20px;
 }
 
 #buttons{
+    position: relative;
+    top: 60px;
+}
+
+#image{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 130px;
+    left: 50px;
 }
